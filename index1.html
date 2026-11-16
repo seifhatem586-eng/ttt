@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكاننا السري ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0a14;
+            --card-bg: #1a1224;
+            --primary: #ff4d6d;
+            --secondary: #ff8fa3;
+            --text: #fff0f3;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body {
+            background: var(--bg-color);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 15px;
+        }
+
+        /* شاشة الباسورد */
+        #login-screen {
+            background: var(--card-bg);
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+        }
+        #login-screen h2 { color: var(--primary); margin-bottom: 10px; }
+        #login-screen p { font-size: 14px; color: #ccc; margin-bottom: 20px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--primary);
+            background: var(--bg-color);
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+        button:hover { background: #e03a58; transform: scale(1.02); }
+        #error-msg { color: #ff758f; font-size: 13px; margin-top: 10px; display: none; }
+
+        /* محتوى الموقع */
+        #main-content {
+            display: none;
+            width: 100%;
+            max-width: 480px;
+            animation: fadeIn 0.8s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card h1, .card h3 { color: var(--primary); margin-bottom: 12px; }
+        .card p { line-height: 1.8; font-size: 15px; color: #f8edeb; }
+
+        /* عداد الوقت */
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .time-box {
+            background: rgba(255, 77, 109, 0.1);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            padding: 10px 5px;
+            border-radius: 12px;
+        }
+        .time-box span {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .time-box small { font-size: 11px; color: #ccc; }
+
+        /* الذكريات */
+        .memory-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: right;
+            border-right: 4px solid var(--primary);
+        }
+        .memory-date { font-size: 12px; color: var(--secondary); font-weight: bold; margin-bottom: 4px; }
+
+        /* أسباب حبي ليكي */
+        .reasons-list {
+            text-align: right;
+            list-style: none;
+            margin-top: 10px;
+        }
+        .reasons-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+        }
+        .reasons-list li:last-child { border-bottom: none; }
+
+        /* أزرار الصلح */
+        .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 20px; position: relative; min-height: 50px; }
+        #yes-btn { background: #2ec4b6; width: auto; padding: 10px 30px; }
+        #no-btn { background: #e63946; width: auto; padding: 10px 25px; position: relative; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. شاشة الباسورد -->
+    <div id="login-screen">
+        <h2>🔒 مكاننا السري</h2>
+        <p>اكتبي تاريخ عيد ميلادي عشان تدخلي</p>
+        <input type="text" id="password-input" placeholder="مثال: 15/10/2024">
+        <button onclick="checkPassword()">دخول ❤️</button>
+        <p id="error-msg">الباسورد غلط يا ست البنات.. ركزي شوية 😉</p>
+    </div>
+
+    <!-- 2. محتوى الموقع بعد الفتح -->
+    <div id="main-content">
+        
+        <!-- رسالة الصلح -->
+        <div class="card">
+            <h1>حقك عليا ❤️</h1>
+            <p>
+                مقدرتش أسيب الوقت يعدي وإحنا زعلانين من بعض، إنتي أغلى حاجة في حياتي وزعلك بيهون عليا الدنيا كلها. عملتلك المكان ده عشان يفضل شاهد على كل لحظة حلوة عشناها سوا.
+            </p>
+        </div>
+
+        <!-- عداد الوقت معاً -->
+        <div class="card">
+            <h3>⏳ كل ثانية وإحنا سوا</h3>
+            <div class="timer-grid">
+                <div class="time-box"><span id="days">0</span><small>يوم</small></div>
+                <div class="time-box"><span id="hours">0</span><small>ساعة</small></div>
+                <div class="time-box"><span id="minutes">0</span><small>دقيقة</small></div>
+                <div class="time-box"><span id="seconds">0</span><small>ثانية</small></div>
+            </div>
+        </div>
+
+        <!-- ذكرياتكم -->
+        <div class="card">
+            <h3>✨ محطات في حكايتنا</h3>
+            
+            <div class="memory-item">
+                <div class="memory-date">وانا مسافر في شهر 7</div>
+                <p>أول مرة اتكلمنا فيها.. اليوم اللي غير حياتي للأحلى وخلاني أشوف الدنيا بشكل تاني.</p>
+            </div>
+
+            <div class="memory-item">
+                <div class="memory-date">أحلى ضحكة</div>
+                <p>كل مرة بتضحكي فيها بنسى أي تعب أو زعل في الدنيا.</p>
+            </div>
+
+            <div class="memory-item">
+                <div class="memory-date">وعد</div>
+                <p>هفضل دايماً جنبك وسندك في كل وقت، ومهما زعلنا هنرجع أقوى من الأول.</p>
+            </div>
+        </div>
+
+        <!-- أسباب حبي ليكي -->
+        <div class="card">
+            <h3>💌 ليه بحبك؟</h3>
+            <ul class="reasons-list">
+                <li>❤️ عشان قلبك أبيض وطيبتك مفيش زيها.</li>
+                <li>✨ عشان وجودك بيهون عليا أي ضغط أو تعب.</li>
+                <li>🌟 عشان إنتي أكتر حد بيفهمني من غير ما أتكلم.</li>
+                <li>🥰 عشان مفيش حد في الدنيا يقدر ياخد مكانك.</li>
+            </ul>
+        </div>
+
+        <!-- سؤال الصلح -->
+        <div class="card" id="question-card">
+            <h3>لسه زعلانة مني؟ 🥺</h3>
+            <div class="btn-group">
+                <button id="yes-btn" onclick="forgiven()">مسامحاك ❤️</button>
+                <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()">لأ لسه 😤</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. غيّر الباسورد هنا للتاريخ اللي بينكم
+        const CORRECT_PASSWORD = "7/8/2004";
+
+        // 2. غيّر تاريخ البداية هنا لحساب العداد (السنة-الشهر-اليوم)
+        const START_DATE = new Date("2024-10-15T00:00:00");
+
+        function checkPassword() {
+            const input = document.getElementById("password-input").value.trim();
+            if (input === CORRECT_PASSWORD) {
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+                startTimer();
+            } else {
+                document.getElementById("error-msg").style.display = "block";
+            }
+        }
+
+        function startTimer() {
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - START_DATE;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
+            }, 1000);
+        }
+
+        // زرار "لأ" بيهرب لما تحاول تدوس عليه
+        function moveButton() {
+            const btn = document.getElementById("no-btn");
+            const x = Math.random() * 140 - 70;
+            const y = Math.random() * 90 - 45;
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // لما تدوس مسامحاك
+        function forgiven() {
+            document.getElementById("question-card").innerHTML = `
+                <h1>كنت عارف إن قلبك أبيض! 🥰❤️</h1>
+                <p>ربنا يخليكي ليا وميحرمنيش منك أبداً. بحبك اوووووووووووي</p>
+            `;
+        }
+    </script>
+</body>
+</html>
